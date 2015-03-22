@@ -26,6 +26,8 @@ void mmtest_command(int, char **);
 void test_command(int, char **);
 void _command(int, char **);
 
+extern long long fibonacci(int);
+
 #define MKCL(n, d) {.name=#n, .fptr=n ## _command, .desc=d}
 
 cmdlist cl[]={
@@ -185,6 +187,15 @@ void test_command(int n, char *argv[]) {
 
     host_action(SYS_CLOSE, handle);
 }
+
+void fibonacci_command(int n,char *argv){
+
+
+
+}
+
+
+
 
 void _command(int n, char *argv[]){
     (void)n; (void)argv;

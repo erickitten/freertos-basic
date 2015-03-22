@@ -20,5 +20,7 @@ char *utoa(const char *numbox, unsigned int i, unsigned int base);
 char *strcat(char * restrict dest, const char * restrict source);
 size_t strlen(const char *str);
 
+int atoi(const char *num);
+
 
 #endif
