@@ -136,13 +136,31 @@ char *utoa(const char *numbox, unsigned int num, unsigned int base){
 	return buf+i+1;
 }
 
+char *ltoa(const char *numbox, long long num, unsigned int base){
+    static char buf[32]={0};
+    int i;
+	if(num==0){
+		buf[30]='0';
+		return &buf[30];
+	}
+
+    int negative=(num<0);
+    if(num <0)num = -num;
+    for(i=30; i>=0&&num; --i, num/=base)
+         buf[i] = numbox[num % base];
+	if(negative){
+		buf[i]='-';
+		--i;
+	}
+	return buf+i+1;
+
+}
+
 int atoi(const char *num){
     int i = 0;
 
     do{
-        if(*num == '\n' || *num=='\r' || *num==' '){
-            break;
-        }else if(*num < 48 || *num > 57 ){
+        if(*num < 48 || *num > 57 ){
             break;
         }
         i = i*10+(*num -48);
