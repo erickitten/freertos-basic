@@ -24,6 +24,7 @@ void help_command(int, char **);
 void host_command(int, char **);
 void mmtest_command(int, char **);
 void test_command(int, char **);
+void fib_command(int, char **);
 void _command(int, char **);
 
 extern long long fibonacci(int);
@@ -39,6 +40,7 @@ cmdlist cl[]={
 	MKCL(mmtest, "heap memory allocation test"),
 	MKCL(help, "help"),
 	MKCL(test, "test new function"),
+    MKCL(fib, "calculate fibonacci number"),
 	MKCL(, ""),
 };
 
@@ -188,10 +190,15 @@ void test_command(int n, char *argv[]) {
     host_action(SYS_CLOSE, handle);
 }
 
-void fibonacci_command(int n,char *argv){
+void fib_command(int n,char *argv[]){
+    int number;
+    if(n==1){
+        fio_printf(2, "\r\nusege: fibonacci <number>\r\n");
+        return;
+    }
 
-
-
+    number = atoi(argv[1]);
+    fio_printf(1,"\r\nfibonacci(%d) = %lld\r\n",number,fibonacci(number));
 }
 
 

@@ -138,14 +138,14 @@ char *utoa(const char *numbox, unsigned int num, unsigned int base){
 
 int atoi(const char *num){
     int i = 0;
-    char t;
 
     do{
-        t = *num -48;
-        if(t < 0 || t > 9){
-            return 0;
+        if(*num == '\n' || *num=='\r' || *num==' '){
+            break;
+        }else if(*num < 48 || *num > 57 ){
+            break;
         }
-        i = i*10+(int)t;
-    }while(num++);
+        i = i*10+(*num -48);
+    }while(*num++);
     return i;
 }
