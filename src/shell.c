@@ -8,6 +8,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "host.h"
+#include "portmacro.h"
 
 typedef struct {
 	const char *name;
@@ -25,7 +26,10 @@ void host_command(int, char **);
 void mmtest_command(int, char **);
 void test_command(int, char **);
 void fib_command(int, char **);
+void new_command(int, char **);
 void _command(int, char **);
+
+void newTask(void *pvParameters);
 
 extern long long fibonacci(int);
 
@@ -41,6 +45,7 @@ cmdlist cl[]={
 	MKCL(help, "help"),
 	MKCL(test, "test new function"),
     MKCL(fib, "calculate fibonacci number"),
+    MKCL(new,"create new empty task"),
 	MKCL(, ""),
 };
 
@@ -202,7 +207,25 @@ void fib_command(int n,char *argv[]){
 }
 
 
+void new_command(int n,char *argv[]){
+    static int num = 0;
+    char buf[24];
 
+    sprintf(buf,"NEW%d",num);
+    num++;
+    int i = xTaskCreate(newTask,(const signed char *)buf,32,NULL,tskIDLE_PRIORITY,NULL);
+    if(i == pdPASS){
+        fio_printf(1,"\r\ntask create successful\r\n");
+    }else{
+        fio_printf(1,"\r\ntask create error, code=%d\r\n",i);
+    }
+}
+
+void newTask(void *pvParameters){
+    while(1){
+        vTaskDelay(250/portTICK_RATE_MS);
+    }
+}
 
 void _command(int n, char *argv[]){
     (void)n; (void)argv;
