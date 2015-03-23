@@ -198,7 +198,7 @@ void fib_command(int n,char *argv[]){
     }
 
     number = atoi(argv[1]);
-    fio_printf(1,"\r\nfibonacci(%d) = %lld\r\n",number,fibonacci(number));
+    fio_printf(1,"\r\nfibonacci(%d) = %l\r\n",number,fibonacci(number));
 }
 
 

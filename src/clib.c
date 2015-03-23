@@ -11,6 +11,7 @@ size_t fio_printf(int fd, const char *format, ...){
 	va_start(v1, format);
 
 	int tmpint;
+    long long tmpll;
 	char *tmpcharp;
 	
 	for(i=0; format[i]; ++i){
@@ -25,6 +26,11 @@ size_t fio_printf(int fd, const char *format, ...){
 					tmpcharp = itoa(format[i+1]=='x'?"0123456789abcdef":"0123456789ABCDEF", tmpint, format[i+1]=='d'?10: 16);
 					fio_write(fd, tmpcharp, strlen(tmpcharp));
 					break;
+                case 'l':
+                    tmpll = va_arg(v1, long long int);
+                    tmpcharp = ltoa("0123456789abcdef", tmpll,10);
+                    fio_write(fd, tmpcharp, strlen(tmpcharp));
+                    break;
 				case 's':
 					tmpcharp = va_arg(v1, char *);
 					fio_write(fd, tmpcharp, strlen(tmpcharp));
@@ -154,6 +160,7 @@ char *ltoa(const char *numbox, long long num, unsigned int base){
 	}
 	return buf+i+1;
 
+    return 0;
 }
 
 int atoi(const char *num){

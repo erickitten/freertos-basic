@@ -17,8 +17,17 @@ SECTIONS
 		_sromfs = .;
                 *(.rom*)
 		_eromfs = .;
-		_sidata = .;
 	} >FLASH
+
+    .ARM.exidx : {
+        __exidx_start = .;
+        *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+        __exidx_end = .;
+    } >FLASH
+
+    .sidata : {
+        _sidata = .;
+    } >FLASH
 
 	/* Initialized data will initially be loaded in FLASH at the end of the .text section. */
     .data : AT (_sidata) 
